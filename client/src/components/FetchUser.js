@@ -15,7 +15,6 @@ class FetchUser extends React.Component {
         axios.get('/api/auth/validate_token')
           .then( res => {
             setUser(res.data.data);
-            debugger
             this.loaded();
           })
           .catch( res => {
