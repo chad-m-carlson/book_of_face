@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import FetchUser from './components/FetchUser';
 import ProfilePage from './components/ProfilePage';
+import ProtectedRoute from './components/ProtectedRoute';
 import {Switch, Route, } from 'react-router-dom';
 import {Container, } from 'semantic-ui-react';
 
@@ -19,7 +20,7 @@ function App() {
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path='/profile' component={ProfilePage} />
+            <ProtectedRoute exact path='/profile' component={ProfilePage} />
             <Route component={NoMatch} />
           </Switch>
         </Container>
