@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import FriendComment from './FriendComment';
 import {AuthConsumer} from '../providers/AuthProvider';
-import {Button} from 'semantic-ui-react';
+import {Comment,} from 'semantic-ui-react';
 
 const ProfilePage = (props) => {
   const [friends, setFriends] = useState([])
@@ -16,24 +17,17 @@ const ProfilePage = (props) => {
       })
   },[]);
 
-  const showFriends = () => {
-
-  }
-
   return(
   <>
     <h1>Profile page</h1>
     <h3>Welcome {props.auth.user.name} </h3>
-    <Button onClick={showFriends}>Show Friends</Button>
     <br />
     <br />
-    <ul>
-      {friends.map( f => {
-        return(
-          <li key={f.id}>{f.name}</li>
-          )
-      })}
-    </ul>
+    <Comment.Group>
+      {friends.map( f => 
+      <FriendComment f={f} />
+        )}
+    </Comment.Group>
     
   </>
   );
