@@ -6,7 +6,7 @@ before_action :authenticate_user!
   end
 
   def show
-    render json: current_user.liked_people
+    render json: Person.make_friends(current_user.id)
   end
 
   def update

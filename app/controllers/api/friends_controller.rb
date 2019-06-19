@@ -3,7 +3,7 @@ class Api::FriendsController < ApplicationController
   before_action :set_user
 
   def index
-    render json: current_user.friends
+    render json: Friend.all_friends(current_user.id)
   end
 
   def new

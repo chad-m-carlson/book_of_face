@@ -7,7 +7,7 @@ const ProfilePage = (props) => {
   const [friends, setFriends] = useState([])
 
   useEffect(() => {
-    axios.get(`/api/people`)
+    axios.get(`/api/people/${props.auth.user.id}/friends`)
       .then( res => {
         setFriends(res.data)
       })
@@ -15,10 +15,6 @@ const ProfilePage = (props) => {
         console.log(err)
       })
   },[]);
-
-  const handleNewFriend = (e, {target, id}) => {
-    axios.put(`/api/people/${id}`)
-  };
 
   const showFriends = () => {
 
@@ -31,18 +27,13 @@ const ProfilePage = (props) => {
     <Button onClick={showFriends}>Show Friends</Button>
     <br />
     <br />
-    {friends.map( f => {
-      return(
-        <div  key={f.id}>
-          <p>{f.name}</p>
-          <Button
-            onClick={handleNewFriend}
-            id={f.id}
-          >Add friend
-          </Button>
-        </div>
-      )
-    })};
+    <ul>
+      {friends.map( f => {
+        return(
+          <li key={f.id}>{f.name}</li>
+          )
+      })}
+    </ul>
     
   </>
   );

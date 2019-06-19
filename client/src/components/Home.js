@@ -17,9 +17,9 @@ const Home = (props) => {
       })
       .catch( err => console.log(err));
       
-      axios.get(`/api/people/${props.auth.user.id}/friends`)
-      .then( res => {
-      })
+      // axios.get(`/api/people/${props.auth.user.id}/friends`)
+      // .then( res => {
+      // })
   },[]);
 
   const findFriendsClick = (x) => {
