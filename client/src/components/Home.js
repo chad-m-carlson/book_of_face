@@ -19,12 +19,10 @@ const Home = (props) => {
       
       axios.get(`/api/people/${props.auth.user.id}/friends`)
       .then( res => {
-        debugger
       })
   },[]);
 
   const findFriendsClick = (x) => {
-    debugger
     showPeople(x);
     toggleButton();
   };
