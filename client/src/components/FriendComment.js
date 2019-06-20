@@ -1,12 +1,24 @@
-import React,{useState, } from 'react';
-import ReplyForm from './ReplyForm'
+import React,{useState, useEffect} from 'react';
+import ReplyForm from './ReplyForm';
+import axios from 'axios';
+import DisplayComments from './DisplayComments';
 import { Comment, } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 
 const FriendComment = (props) => {
-  const {f} = props
-  const [showForm, setShowForm] = useState(false)
+  const [showForm, setShowForm] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
+  const {f} = props;
+
+  useEffect( () => {
+    const {person_id} = props.f    
+    axios.get(`/api/persons/${person_id}/comments`)
+      .then( res => {
+        setComments(res.data)
+      });
+  },[showForm,]);
 
 
 return(
@@ -19,9 +31,19 @@ return(
         <Comment.Action id={f.person_id} onClick={() => setShowForm(!showForm)}>
           Reply
         </Comment.Action>
+        {comments.length > 0 &&
+        <Comment.Action 
+          onClick={() => setShowComments(!showComments)}
+          id={f.person_id} 
+          style={{float: 'right', paddingRight: '20px'}}>
+          Show Comments
+        </Comment.Action>}
       </Comment.Content>
       {showForm &&
       <ReplyForm {...props} setShowForm={setShowForm} showForm={showForm}/>
+      }
+      {showComments &&
+      <DisplayComments comments={comments}/>
       }
       </Comment>
   </>

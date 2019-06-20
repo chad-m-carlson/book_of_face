@@ -5,14 +5,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
-  # serialize :liked_people, Array
-
   has_many :friends, dependent: :destroy
   has_many :people, through: :friends
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
-  def self.liked(ids)
-    ids = ids.empty? ? [0] : ids
-    Person.where("id IN (?)", ids)
-  end
+  # def self.liked(ids)
+  #   ids = ids.empty? ? [0] : ids
+  #   Person.where("id IN (?)", ids)
+  # end
 end

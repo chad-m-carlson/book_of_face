@@ -8,7 +8,40 @@ const Home = (props) => {
   const [page, setPage] = useState(0);
   const [shownPeople, setShownPeople] = useState([]);
   const [showButton, setShowButton] = useState(true);
+  const [toggleMakeFriend, setToggleMakeFriend] = useState(true);
 
+  
+  const findFriendsClick = (x) => {
+    showPeople(x);
+    toggleButton();
+  };
+  
+  const showPeople = (page) => {
+    let sp = people.slice(page*8, page*8+8);
+    setShownPeople(sp)
+  };
+  
+  const pageCounter = (operator) => {
+    if (operator === 'plus') setPage(page + 1)
+    else setPage(page - 1);
+    showPeople(page)
+  };
+  
+  const toggleButton = () => {
+    setShowButton(!showButton)
+  };
+  
+  const makeFriend = (id) => {
+    axios.post(`/api/people/${id}/friends`, {user_id: props.auth.user.id, person_id: id})
+    .then(setPeople(people.filter( p => {
+      if (p.id !== id )
+      return p
+    })))
+    .catch( err => alert(`this person is already your Friend`))
+    showPeople(page)
+    setToggleMakeFriend(!toggleMakeFriend)
+  };
+  
   useEffect( ()=> {
     axios.get(`/api/people/`)
       .then( res => {
@@ -16,36 +49,6 @@ const Home = (props) => {
       })
       .catch( err => console.log(err));
   },[]);
-
-  const findFriendsClick = (x) => {
-    showPeople(x);
-    toggleButton();
-  };
-
-  const showPeople = (page) => {
-    let sp = people.slice(page*8, page*8+8);
-    setShownPeople(sp)
-  };
-
-  const pageCounter = (operator) => {
-     if (operator === 'plus') setPage(page + 1)
-     else setPage(page - 1);
-     showPeople(page)
-  };
-
-  const toggleButton = () => {
-    setShowButton(!showButton)
-  };
-
-  const makeFriend = (id) => {
-    axios.post(`/api/people/${id}/friends`, {user_id: props.auth.user.id, person_id: id})
-      .then(setPeople(people.filter( p => {
-        if (p.id !== id )
-        return p
-      })))
-      .catch( err => alert(`this person is already your Friend`))
-      showPeople(page)
-  };
 
   return(
   <>
@@ -77,12 +80,15 @@ const Home = (props) => {
               <b>Favorite Beer:</b> {p.beer}
             </Card.Description>
           </Card.Content>
+          {/* MAKE ONE BUTTON DISSAPEAR ON CLICK NOT ALL */}
+          {/* {toggleMakeFriend &&
             <Button 
-              basic color='green'
-              onClick={() => makeFriend(p.id)}
+            basic color='green'
+            onClick={() => makeFriend(p.id)}
             >
               Make Friend!
             </Button>
+          } */}
           <Card.Content extra>
             <Icon name='user' />
             {Math.floor(Math.random()*1012)} Friends

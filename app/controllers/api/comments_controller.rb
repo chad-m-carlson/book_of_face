@@ -1,11 +1,13 @@
 class Api::CommentsController < ApplicationController
-  before_action :set_user
+  # before_action :authenticate_user!
+  before_action :set_user, only: [:index, :create, :edit, :destroy]
 
   def index
+
   end
 
   def create
-    comment = Comment.create(params.require(:comment).permt(:person_id, :body))
+    comment = Comment.create(params.require(:comment).permit(:person_id, :body, :user_id))
     if comment.save
       render json: comment
     else
@@ -17,6 +19,11 @@ class Api::CommentsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def persons_comments
+    comment = Comment.where("person_id = ?", params[:person_id])
+    render json: comment
   end
 
   private

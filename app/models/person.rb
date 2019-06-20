@@ -2,6 +2,7 @@ class Person < ApplicationRecord
 
   has_many :friends, dependent: :destroy
   has_many :users, through: :friends
+  has_many :comments, through: :friends
 
 
   def self.show_new_people(user_id)
