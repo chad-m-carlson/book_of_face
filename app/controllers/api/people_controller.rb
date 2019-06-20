@@ -2,7 +2,9 @@ class Api::PeopleController < ApplicationController
 before_action :authenticate_user!
 
   def index
-    render json: Person.all
+    # CUSTOM SQL IS NOT BRING PERSON_ID THROUGH SO CAN'T ADD FRIENDS BASED ON THAT
+    render json: Person.show_new_people(current_user.id)
+    # render json: Person.all
   end
 
   def show

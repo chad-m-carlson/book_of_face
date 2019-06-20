@@ -15,7 +15,7 @@ const ProfilePage = (props) => {
       .catch( err => {
         console.log(err)
       })
-  },[]);
+  },[props.auth.user.id]);
 
   return(
   <>
@@ -25,7 +25,7 @@ const ProfilePage = (props) => {
     <br />
     <Comment.Group>
       {friends.map( f => 
-      <FriendComment f={f} />
+      <FriendComment f={f} key={f.person_id}/>
         )}
     </Comment.Group>
     

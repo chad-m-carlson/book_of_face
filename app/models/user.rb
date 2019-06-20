@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :friends, dependent: :destroy
   has_many :people, through: :friends
+  has_many :comments
 
   def self.liked(ids)
     ids = ids.empty? ? [0] : ids

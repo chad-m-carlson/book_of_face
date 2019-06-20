@@ -8,7 +8,6 @@ const Home = (props) => {
   const [page, setPage] = useState(0);
   const [shownPeople, setShownPeople] = useState([]);
   const [showButton, setShowButton] = useState(true);
-  const [friends, setFriends] = useState([]);
 
   useEffect( ()=> {
     axios.get(`/api/people/`)
@@ -16,10 +15,6 @@ const Home = (props) => {
         setPeople(res.data)
       })
       .catch( err => console.log(err));
-      
-      // axios.get(`/api/people/${props.auth.user.id}/friends`)
-      // .then( res => {
-      // })
   },[]);
 
   const findFriendsClick = (x) => {
@@ -43,11 +38,12 @@ const Home = (props) => {
   };
 
   const makeFriend = (id) => {
-    axios.put(`/api/people/${id}`)
+    axios.post(`/api/people/${id}/friends`, {user_id: props.auth.user.id, person_id: id})
       .then(setPeople(people.filter( p => {
         if (p.id !== id )
         return p
       })))
+      .catch( err => alert(`this person is already your Friend`))
       showPeople(page)
   };
 
@@ -63,8 +59,8 @@ const Home = (props) => {
       style={showButton ? {display: 'inline-block'} : {display: 'none'}}
       >Find Friends</Button>
     <Card.Group itemsPerRow={4}>
-      { shownPeople.map( p => 
-        <Card raised key={p.id}>
+      { shownPeople.map( (p, i) => 
+        <Card raised key={i}>
           <Image src={p.avatar_url} />
           <Card.Content>
             <Divider />

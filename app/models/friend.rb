@@ -1,6 +1,7 @@
 class Friend < ApplicationRecord
   belongs_to :user
   belongs_to :person
+  validates :person_id, uniqueness: true
 
   def self.all_friends(user_id)
     Friend.find_by_sql(

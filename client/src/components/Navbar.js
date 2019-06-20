@@ -19,7 +19,7 @@ class Navbar extends React.Component {
               active={location.pathname ==='/profile'}
             />
           </Link>
-          <Link>
+          <Link to='/'>
           <Menu.Item
             as={MenuButton}
             name='logout'
