@@ -1,5 +1,6 @@
 import React, {useState, useEffect, }from 'react';
 import axios from 'axios';
+import FriendButton from './FriendButton';
 import {AuthConsumer} from '../providers/AuthProvider';
 import {Header, Card, Divider, Image, Button, Icon } from 'semantic-ui-react';
 
@@ -50,6 +51,19 @@ const Home = (props) => {
       .catch( err => console.log(err));
   },[]);
 
+  // const renderMakeFriendButton = (id) => (
+  //   <>
+  //     {toggleMakeFriend &&
+  //       <Button 
+  //       basic color='green'
+  //       onClick={() => makeFriend(id)}
+  //       >
+  //         Make Friend!
+  //       </Button>
+  //     }
+  //   </>
+  // )
+
   return(
   <>
     <Header 
@@ -81,14 +95,9 @@ const Home = (props) => {
             </Card.Description>
           </Card.Content>
           {/* MAKE ONE BUTTON DISSAPEAR ON CLICK NOT ALL */}
-          {/* {toggleMakeFriend &&
-            <Button 
-            basic color='green'
-            onClick={() => makeFriend(p.id)}
-            >
-              Make Friend!
-            </Button>
-          } */}
+          {/* {renderMakeFriendButton(p.id)} */}
+          <FriendButton personID={p.id} makeFriend={makeFriend} toggleMakeFriend={toggleMakeFriend} />
+          
           <Card.Content extra>
             <Icon name='user' />
             {Math.floor(Math.random()*1012)} Friends
