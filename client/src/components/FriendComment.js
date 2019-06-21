@@ -29,7 +29,7 @@ return(
         <Comment.Actions 
           id={f.person_id} 
           onClick={() => setShowForm(!showForm)} 
-          style={{float: 'right'}}>
+          style={{float: 'right', cursor: 'pointer'}}>
           Reply
         </Comment.Actions>
         <Comment.Author>{f.name}</Comment.Author>
@@ -38,7 +38,7 @@ return(
         <Comment.Actions 
           onClick={() => setShowComments(!showComments)}
           id={f.person_id} 
-          // style={{float: 'right', paddingBottom: '20px'}}
+          style={{cursor: 'pointer'}}
           >
           Show Comments
         </Comment.Actions>}
