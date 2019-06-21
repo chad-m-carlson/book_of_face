@@ -1,7 +1,7 @@
 class Friend < ApplicationRecord
   belongs_to :user
   belongs_to :person
-  validates :person_id, uniqueness: true
+  validates_uniqueness_of :person_id, :scope => [:user_id]
 
   def self.all_friends(user_id)
     Friend.find_by_sql(

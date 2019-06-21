@@ -55,7 +55,7 @@ class Navbar extends React.Component {
   render() {
     return(
       <div>
-        <Menu pointing secondary style={{backgroundColor: '#4267b2', borderBottom: '1px solid black'}}>
+        <Menu pointing secondary style={{backgroundColor: '#659dbd', borderBottom: '1px solid black'}}>
           <Link to='/' >
             <Menu.Item
               as={MenuButton}

@@ -26,18 +26,22 @@ return(
     <Comment as={CommentContainer} key={f.person_id}>
       <Comment.Avatar src={f.avatar_url} size='tiny'/>
       <Comment.Content>
+        <Comment.Actions 
+          id={f.person_id} 
+          onClick={() => setShowForm(!showForm)} 
+          style={{float: 'right'}}>
+          Reply
+        </Comment.Actions>
         <Comment.Author>{f.name}</Comment.Author>
         <Comment.Text><b><i>Drinking: </i></b> {f.beer}</Comment.Text>
-        <Comment.Action id={f.person_id} onClick={() => setShowForm(!showForm)}>
-          Reply
-        </Comment.Action>
         {comments.length > 0 &&
-        <Comment.Action 
+        <Comment.Actions 
           onClick={() => setShowComments(!showComments)}
           id={f.person_id} 
-          style={{float: 'right', paddingRight: '20px'}}>
+          // style={{float: 'right', paddingBottom: '20px'}}
+          >
           Show Comments
-        </Comment.Action>}
+        </Comment.Actions>}
       </Comment.Content>
       {showForm &&
       <ReplyForm {...props} setShowForm={setShowForm} showForm={showForm}/>
@@ -53,11 +57,11 @@ return(
 const CommentContainer = styled.div`
   border: 1px solid gray !important;
   border-radius: 5px !important;
-  background-color: azure !important;
+  background-color: #fbeec1 !important;
   cursor: arrow !important;
   box-shadow: 3px 3px 3px 0px rgba(171,171,171,1);
-  padding: 10px !important;
-  margin: 15px !important;
+  padding: 20px !important;
+  margin: 25px !important;
 `;
 
 export default FriendComment;

@@ -22,8 +22,9 @@ class Api::CommentsController < ApplicationController
   end
 
   def persons_comments
-    comment = Comment.where("person_id = ?", params[:person_id])
-    render json: comment
+    render json: Comment.persons_comments(params[:person_id])
+    # comment = Comment.where("person_id = ?", params[:person_id])
+    # render json: comment
   end
 
   private
