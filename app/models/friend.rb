@@ -5,11 +5,16 @@ class Friend < ApplicationRecord
 
   def self.all_friends(user_id)
     Friend.find_by_sql(
-    "SELECT name, age, location, gender, beer, avatar_url, about, beer, person_id
+    "WITH a AS (select count (id) as friends_count, person_id
+    FROM friends
+    GROUP BY person_id)
+    SELECT name, age, location, gender, beer, avatar_url, about, f.person_id, friends_count
     FROM people as p
     INNER JOIN friends as f
     ON p.id = f.person_id
-    where user_id = #{user_id}"
+    LEFT JOIN a
+    ON a.person_id = f.person_id
+    WHERE user_id = #{user_id}"
     )
   end
 end
