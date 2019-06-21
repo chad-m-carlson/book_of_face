@@ -11,7 +11,7 @@ const Home = (props) => {
   const [showButton, setShowButton] = useState(true);
   const [toggleMakeFriend, setToggleMakeFriend] = useState(true);
 
-  
+  console.log(people)
   const findFriendsClick = (x) => {
     showPeople(x);
     toggleButton();
@@ -100,7 +100,7 @@ const Home = (props) => {
           
           <Card.Content extra>
             <Icon name='user' />
-            {Math.floor(Math.random()*1012)} Friends
+            {p.friends_count} Friends
           </Card.Content>
         </Card>)}
     </Card.Group>

@@ -33,6 +33,7 @@ return(
           Reply
         </Comment.Actions>
         <Comment.Author>{f.name}</Comment.Author>
+        <Comment.Metadata>{f.friends_count} Friends</Comment.Metadata>
         <Comment.Text><b><i>Drinking: </i></b> {f.beer}</Comment.Text>
         {comments.length > 0 &&
         <Comment.Actions 

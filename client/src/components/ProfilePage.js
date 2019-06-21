@@ -6,7 +6,7 @@ import {Comment,} from 'semantic-ui-react';
 
 const ProfilePage = (props) => {
   const [friends, setFriends] = useState([])
-
+  console.log(friends)
   useEffect(() => {
     axios.get(`/api/people/${props.auth.user.id}/friends`)
       .then( res => {
