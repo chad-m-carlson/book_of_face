@@ -42,36 +42,8 @@ group by person_id)
       from f
       left join g
       on g.person_id = f.id
-    
     "
       )
     end
   end
   
-  # "with a as (select person_id
-  # from friends),
-  # b as (
-  # select person_id
-  # from friends
-  # where user_id = #{user_id}),
-  # c as (select * 
-  # from a 
-  # except 
-  # select *
-  # from b),
-  # d as
-  # (select p.*
-  # from c
-  # left join people as p
-  # on p.id = c.person_id),
-  # e as (
-  # select p.*
-  # from people as p
-  # left join friends as f
-  # on p.id = f.person_id
-  # where f.user_id is null)
-  # select *
-  # from d
-  # union
-  # select *
-  # from e"
