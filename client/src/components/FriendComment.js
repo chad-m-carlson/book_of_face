@@ -20,6 +20,11 @@ const FriendComment = (props) => {
       });
   },[showForm,]);
 
+  const showFriendCount = (count) => {
+    if (count <= 1) return <Comment.Metadata>{count} Friend</Comment.Metadata>
+    else return <Comment.Metadata>{count} Friends</Comment.Metadata>
+  }
+
 
 return(
   <>
@@ -33,7 +38,7 @@ return(
           Reply
         </Comment.Actions>
         <Comment.Author>{f.name}</Comment.Author>
-        <Comment.Metadata>{f.friends_count} Friends</Comment.Metadata>
+        {showFriendCount(f.friends_count)}
         <Comment.Text><b><i>Favorite Beer: </i></b> {f.beer}</Comment.Text>
         {comments.length > 0 &&
         <Comment.Actions 

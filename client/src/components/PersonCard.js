@@ -1,21 +1,35 @@
-import React, {useState, useEffect, } from 'react';
-import FriendButton from './FriendButton';
+import React, {useState,  } from 'react';
 import axios from 'axios';
 import {Card, Divider, Image, Icon, Button} from 'semantic-ui-react';
 
 const PersonCard = (props) => {
   const [toggleMakeFriend, setToggleMakeFriend] = useState(true);
-
+  
   const makeFriend = (id) => {
-    // axios.post(`/api/people/${id}/friends`, {user_id: props.auth.user.id, person_id: id})
-    // .then(setPeople(people.filter( p => {
+    axios.post(`/api/people/${id}/friends`, {user_id: props.auth.user.id, person_id: id})
+    // .then(props.setPeople(props.people.filter( p => {
     //   if (p.id !== id )
     //   return p
     // })))
-    // .catch( err => alert(`this person is already your Friend`))
-    // showPeople(page)
+    .catch( err => alert(`this person is already your Friend`))
+    // props.showPeople(page)
     setToggleMakeFriend(!toggleMakeFriend)
   };
+
+  const showFriendCount = (count) => {
+    if (count <= 0) return ( <Card.Content extra>
+        <Icon name='user' />
+          No Friends 
+        </Card.Content>)
+    else if (count = 1) return  (<Card.Content extra>
+        <Icon name='user' />
+          {count} Friend
+        </Card.Content>)
+    else return ( <Card.Content extra>
+        <Icon name='user' />
+          {count} Friends
+        </Card.Content>)
+  }
 
   return(
     <>
@@ -39,16 +53,13 @@ const PersonCard = (props) => {
         {toggleMakeFriend &&
           <Button 
           basic color='green'
-          onClick={() => makeFriend(props.personID)}
-          // style={displayButton}
+          onClick={() => makeFriend(props.p.id)}
           >
             Make Friend!
           </Button>
         }
-        <Card.Content extra>
-          <Icon name='user' />
-          {props.p.friends_count} Friends
-        </Card.Content>
+        {showFriendCount(props.p.friends_count)}
+       
       </Card>
     </>
   );

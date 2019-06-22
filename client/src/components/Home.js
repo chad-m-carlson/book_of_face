@@ -23,10 +23,6 @@ const Home = (props) => {
       })
       .catch( err => console.log(err));
   },[]);
-  // const showPeople = (page) => {
-  //   let sp = people.slice(page*8, page*8+8);
-  //   setShownPeople(sp)
-  // };
   
   const pageCounter = (operator) => {
     if (operator === 'plus') setPage(page + 1)
@@ -37,6 +33,11 @@ const Home = (props) => {
   const toggleButton = () => {
     setShowButton(!showButton)
   };
+
+  // const showPeople = (page) => {
+  //   let sp = people.slice(page*8, page*8+8);
+  //   setShownPeople(sp)
+  // };
   
   return(
   <>
@@ -51,7 +52,16 @@ const Home = (props) => {
       >Find Friends</Button>
     <Card.Group itemsPerRow={4}>
       { people.map( (p, i) => 
-        <PersonCard key={i} p={p}/>
+        <PersonCard 
+          key={i} p={p} 
+          shownPeople={shownPeople} 
+          people={people} 
+          setShowButton={setShownPeople} 
+          people={people}
+          setPeople={setPeople}
+          auth={props.auth}
+          // showPeople={showPeople}
+          />
       )}
     </Card.Group>
     <br />
