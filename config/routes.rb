@@ -9,5 +9,6 @@ Rails.application.routes.draw do
       resources :comments, only: [:index, :create, :edit, :destroy]
     end
     get "persons/:person_id/comments", to: "comments#persons_comments"
+    get "random/people", to: "people#random_people"
   end
 end

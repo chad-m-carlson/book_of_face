@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import {AuthConsumer, } from '../providers/AuthProvider';
 import { Button, Form, Segment, Header, } from 'semantic-ui-react';
 

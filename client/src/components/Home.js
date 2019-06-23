@@ -1,11 +1,13 @@
 import React, {useState, useEffect, }from 'react';
-import axios from 'axios';
 import FriendButton from './FriendButton';
+import axios from 'axios';
 import {AuthConsumer} from '../providers/AuthProvider';
-import {Header, Card, Divider, Image, Button, Icon } from 'semantic-ui-react';
+import {Header, Card, Button, Image, Divider, Icon } from 'semantic-ui-react';
+
 
 const Home = (props) => {
   const [people, setPeople] = useState([]);
+
   const [page, setPage] = useState(0);
   const [toggleMakeFriend, setToggleMakeFriend] = useState(true);
   
@@ -44,9 +46,14 @@ const Home = (props) => {
       .catch( err => console.log(err));
   }
 
+  // const showPeople = (page) => {
+  //   let sp = people.slice(page*8, page*8+8);
+  //   setShownPeople(sp)
+  // };
+  
   return(
   <>
-    <Header 
+     <Header 
       as='h1' 
       textAlign='center' 
       style={{fontFamily: 'monoton', fontSize: '72px'}}> 
