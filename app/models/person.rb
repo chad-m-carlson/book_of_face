@@ -5,7 +5,7 @@ class Person < ApplicationRecord
   has_many :comments, through: :friends
 
 
-  def self.show_new_people(user_id)
+  def self.show_new_people(user_id, page)
     Person.find_by_sql("
     with a as (select person_id
       from friends),
@@ -42,6 +42,7 @@ group by person_id)
       from f
       left join g
       on g.person_id = f.id
+      order by f.id offset #{page} limit 8
     "
       )
     end
