@@ -1,5 +1,5 @@
 class Api::PeopleController < ApplicationController
-before_action :authenticate_user!,  except: :create
+before_action :authenticate_user!,  except: [:create, :random_people]
 
   def index
     render json: Person.show_new_people(current_user.id, params[:page])
@@ -21,5 +21,9 @@ before_action :authenticate_user!,  except: :create
   def update
     current_user.liked_people << params[:id].to_i
     current_user.save
+  end
+
+  def random_people
+    render json: Person.all.sample(5)
   end
 end

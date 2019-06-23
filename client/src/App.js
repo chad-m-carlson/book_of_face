@@ -7,6 +7,8 @@ import Register from './components/Register';
 import FetchUser from './components/FetchUser';
 import ProfilePage from './components/ProfilePage';
 import ProtectedRoute from './components/ProtectedRoute';
+import EditProfile from './components/EditProfile';
+import Welcome from './components/Welcome';
 import {Switch, Route, } from 'react-router-dom';
 import {Container, } from 'semantic-ui-react';
 
@@ -17,7 +19,9 @@ function App() {
       <FetchUser>
         <Container>
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' component={Welcome} />
+            <ProtectedRoute exact path ='/home' component = {Home} />
+            <ProtectedRoute exact path ='/profile/edit' component = {EditProfile} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
             <ProtectedRoute exact path='/profile' component={ProfilePage} />

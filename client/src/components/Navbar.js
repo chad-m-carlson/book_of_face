@@ -51,21 +51,40 @@ class Navbar extends React.Component {
       );
     };
   };
+
+  leftNavItems = () => {
+    const {user} = this.props.auth
+    if (user) {
+      return(
+        <Link to='/home' >
+            <Menu.Item
+              as={MenuButton}
+              name='Home'
+              id='Home'
+              active={this.props.location.pathname ==='/home'}
+            />
+          </Link>
+      )
+    }else return(
+      <Link to='/' >
+            <Menu.Item
+              as={MenuButton}
+              name='Book of Face'
+              id='Book of Face'
+              active={this.props.location.pathname ==='/'}
+            />
+          </Link>
+    )
+  }
   
   render() {
     return(
       <div>
         <Menu pointing secondary style={{backgroundColor: '#659dbd', borderBottom: '1px solid black'}}>
-          <Link to='/' >
-            <Menu.Item
-              as={MenuButton}
-              name='home'
-              id='home'
-              active={this.props.location.pathname ==='/'}
-            />
-          </Link>
+          {this.leftNavItems()}
           { this.rightNavItems()}
         </Menu>
+        
       </div>
     );
   };

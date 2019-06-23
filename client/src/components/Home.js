@@ -1,8 +1,9 @@
 import React, {useState, useEffect, }from 'react';
-import PersonCard from './PersonCard';
+import FriendButton from './FriendButton';
 import axios from 'axios';
 import {AuthConsumer} from '../providers/AuthProvider';
-import {Header, Card, Button,  } from 'semantic-ui-react';
+import {Header, Card, Button, Image, Divider, Icon } from 'semantic-ui-react';
+
 
 const Home = (props) => {
   const [people, setPeople] = useState([]);
