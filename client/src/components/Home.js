@@ -7,62 +7,42 @@ import {Header, Card, Divider, Image, Button, Icon } from 'semantic-ui-react';
 const Home = (props) => {
   const [people, setPeople] = useState([]);
   const [page, setPage] = useState(0);
-  const [shownPeople, setShownPeople] = useState([]);
-  const [showButton, setShowButton] = useState(true);
   const [toggleMakeFriend, setToggleMakeFriend] = useState(true);
-
-  console.log(people)
-  const findFriendsClick = (x) => {
-    showPeople(x);
-    toggleButton();
-  };
-  
-  const showPeople = (page) => {
-    let sp = people.slice(page*8, page*8+8);
-    setShownPeople(sp)
-  };
   
   const pageCounter = (operator) => {
-    if (operator === 'plus') setPage(page + 1)
-    else setPage(page - 1);
-    showPeople(page)
-  };
-  
-  const toggleButton = () => {
-    setShowButton(!showButton)
-  };
+    if (operator === 'plus') {
+      setPage(page + 1)
+    }
+    else {
+      setPage(page - 1);}
+      getPeople(page)
+    };
   
   const makeFriend = (id) => {
     axios.post(`/api/people/${id}/friends`, {user_id: props.auth.user.id, person_id: id})
-    .then(setPeople(people.filter( p => {
-      if (p.id !== id )
-      return p
-    })))
+    // .then(setPeople(people.filter( p => {
+    //   if (p.id !== id )
+    //   return p
+    // })))
     .catch( err => alert(`this person is already your Friend`))
-    showPeople(page)
     setToggleMakeFriend(!toggleMakeFriend)
   };
   
   useEffect( ()=> {
-    axios.get(`/api/people/`)
+    axios.get(`/api/people/`, {params: {page: page}})
       .then( res => {
         setPeople(res.data)
       })
       .catch( err => console.log(err));
   },[]);
 
-  // const renderMakeFriendButton = (id) => (
-  //   <>
-  //     {toggleMakeFriend &&
-  //       <Button 
-  //       basic color='green'
-  //       onClick={() => makeFriend(id)}
-  //       >
-  //         Make Friend!
-  //       </Button>
-  //     }
-  //   </>
-  // )
+  const getPeople = (page) => {
+    axios.get(`/api/people/`, {params: {page: page + 8}})
+      .then( res => {
+        setPeople(res.data)
+      })
+      .catch( err => console.log(err));
+  }
 
   return(
   <>
@@ -71,12 +51,8 @@ const Home = (props) => {
       textAlign='center' 
       style={{fontFamily: 'monoton', fontSize: '72px'}}> 
     Book of Face</Header>
-    <Button 
-      onClick={() => findFriendsClick(0)}
-      style={showButton ? {display: 'inline-block'} : {display: 'none'}}
-      >Find Friends</Button>
     <Card.Group itemsPerRow={4}>
-      { shownPeople.map( (p, i) => 
+      { people.map( (p, i) => 
         <Card raised key={i}>
           <Image src={p.avatar_url} />
           <Card.Content>
@@ -95,7 +71,6 @@ const Home = (props) => {
             </Card.Description>
           </Card.Content>
           {/* MAKE ONE BUTTON DISSAPEAR ON CLICK NOT ALL */}
-          {/* {renderMakeFriendButton(p.id)} */}
           <FriendButton personID={p.id} makeFriend={makeFriend} toggleMakeFriend={toggleMakeFriend} />
           
           <Card.Content extra>
@@ -109,11 +84,11 @@ const Home = (props) => {
     <div style={{display: 'flex', justifyContent: 'space-between'}}>
       <Button 
         onClick={() => pageCounter('minus')}
-        style={(page < 1) ? {display: 'none'} : {display: 'block'}}
+        // style={(page < 1) ? {display: 'none'} : {display: 'block'}}
         >Previous</Button>
       <Button 
         onClick={() => pageCounter('plus')}
-        style={showButton ? {display: 'none'} : {display: 'block'}}
+        // style={showButton ? {display: 'none'} : {display: 'block'}}
         >Next</Button> 
     </div>
   </>

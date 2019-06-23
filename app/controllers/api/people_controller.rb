@@ -2,7 +2,7 @@ class Api::PeopleController < ApplicationController
 before_action :authenticate_user!,  except: :create
 
   def index
-    render json: Person.show_new_people(current_user.id)
+    render json: Person.show_new_people(current_user.id, params[:page])
   end
 
   def create
